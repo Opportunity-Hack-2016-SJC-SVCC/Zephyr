@@ -155,7 +155,11 @@ $scope.outgoingDonations = function() {
         jsonOutgoing.count = parseInt(value.value);
         Salesforce.saveOutgoing(jsonOutgoing);
       });
+      $scope.data.itemList = []
+      $scope.data.client.value = ""
+      $scope.data.clientReps.value = ""
       $scope.outmodal.hide();
+
     };
 
     ///REMOVE AN ITEM
