@@ -10,12 +10,32 @@
   <ion-content>
   	<div class="content padding">
     <h1>Incoming Donations Form</h1>
-    <form name="incomingDonationsForm" ng-submit=" " >
+    <form name="incomingDonationsForm" ng-submit="incomingDonationsSubmit(incomingDonationsForm)" >
     	<div class="list" >
-    		<label class="item item-input" >
+    		<label class="item item-input" ng-class="{'has-errors':incomingDonationsForm.staffName.$invalid , 'no-errors':incomingDonationsForm.staffName.$valid}">
     			<span class="input-label">Staff Name</span>
-    			<input type="text" name="staffName" ng-model="" required > </input> 
+    			<input type="text" name="staffName" ng-model="userData.staffName" required ></input>
     		</label> 
+    		<div class="error-container" ng-show="incomingDonationsForm.staffName.$error" ng-messages="incomingDonationsForm.staffName.$error">
+    			<div ng-messages-include="error-list.html"></div>
+    		</div>
+    		<label class="item item-input" ng-class="{'has-errors':incomingDonationsForm.programName.$invalid, 'no-errors':incomingDonationsForm.programName.$valid} ">
+    			<span class="input-label">Program</span>
+    			<input type="text" name="programName" ng-model="userData.programName" required > </input>
+    		</label> 
+    		<div class="error-container" ng-show="incomingDonationsForm.programName.$error" ng-messages="incomingDonationsForm.programName.$error">
+    			<div ng-messages-include="error-list.html"></div>
+    		</div>
+    		<label class="item item-input" ng-class="{'has-errors':incomingDonationsForm.familyName.$invalid, 'no-errors':incomingDonationsForm.familyName.$valid}">
+    			<span class="input-label">Family Name</span>
+    			<input type="text" name="familyName" ng-model="userData.familyName" required > </input>
+    		</label> 
+    		<div class="error-container" ng-show="incomingDonationsForm.familyName.$error" ng-messages="incomingDonationsForm.familyName.$error">
+    			<div ng-messages-include="error-list.html"></div>
+    		</div>
+    		<button class="button button-full button-positive" type="submit">
+    			Submit
+    		</button>
     	</div>
     </form>
 	</div>

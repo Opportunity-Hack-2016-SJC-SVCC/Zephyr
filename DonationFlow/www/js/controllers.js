@@ -72,6 +72,16 @@ angular.module('starter.controllers', [])
     //alert('out donation!');
   };
 
+  $scope.userData = {
+    staffName: '',
+    programName: '',
+    familyName: ''
+  };
+
+  $scope.incomingDonationsSubmit = function(form) {
+    alert($scope.userData.staffName);
+  };
+
 });
 
 
