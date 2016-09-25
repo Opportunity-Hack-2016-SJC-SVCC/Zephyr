@@ -1,0 +1,49 @@
+<ion-modal-view>
+
+  <ion-header-bar>
+    <a class="button icon-left ion-chevron-left button-clear button-dark" ng-click="closeOutgoingDonations()" style="font-weight: 500;" >Back</a>
+    <h1 class="title">Login</h1>
+    <button style="font-weight: 500;" class="button button-clear button-dark">
+      Submit
+    </button>
+  </ion-header-bar>
+
+
+  <ion-content>
+   <div class="content padding">
+    <h1>Outgoing Donations Form</h1>
+  </div>
+
+  <div class="list">
+    <label class="item item-input item-floating-label">
+      <span class="input-label">Client Name</span>
+      <input type="text" placeholder="Client Name">
+    </label>
+
+    <div class="list">
+     <label class="search_nav item item-input item-floating-label" >
+      <span class="input-label">Client Representative</span>
+      <input type="text" placeholder="Client Representative">
+    </label>
+
+    <div>
+      <li class="item" ng-repeat="item in data.itemList">{{item.name}}</li>
+    </div>
+
+    <label class="item item-input item-floating-label">
+      <input type="search" placeholder="Search" ng-change="search()" ng-model="data.itemName">
+    </label>
+    <button class="button button-clear">
+      Cancel
+    </button>      
+
+    <div class="list">
+      <li class="item" ng-repeat="airline in data.airlines" ng-click = "selectedItem('{{airline.name}}')">{{airline.name}}</li>
+    </div>
+
+  </div>
+
+
+</ion-content>
+
+</ion-modal-view> 
