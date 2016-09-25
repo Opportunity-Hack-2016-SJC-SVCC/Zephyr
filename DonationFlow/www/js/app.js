@@ -50,6 +50,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       }
     })
+  .state('app.login_return', {
+      url: '/login_return',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/login_return.html',
+          controller: 'LoginReturnCtrl'
+        }
+      }
+    })
     .state('app.playlists', {
       url: '/playlists',
       views: {

@@ -1,8 +1,8 @@
 window.app = angular.module('starter.controllers', [])
 
 
-app.controller('AppCtrl', function($scope, $ionicModal, $timeout, FlightDataService) {
-
+app.controller('AppCtrl', function($scope, $ionicModal, $timeout,Salesforce,DataService) {
+ 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -27,7 +27,10 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, FlightDataServ
 
   // Open the login modal
   $scope.login = function() {
-    $scope.modal.show();
+    //$scope.modal.show();
+    Salesforce.login().then(function(){
+
+    });
   };
 
   // Perform the login action when the user submits the login form
@@ -142,8 +145,28 @@ $ionicModal.fromTemplateUrl('templates/outgoing-donations.html', {
         $scope.data.itemList.push(newItem);
       }
   
-});
+})
 
+.factory("Login",function($q){
+  this.login = function(){
+    var q = $q.defer();
+
+    var redirect_uri = "https://donationflow.herokuapp.com/#/app/login_return";
+
+    var loginUrl = "https://login.salesforce.com/services/oauth2/authorize?response_type=token&client_id=3MVG9szVa2RxsqBYv25vb5u8fnRIDC_itm48NSkcQASWCTa4niLmieviNcUPJfdnE8BQk2nzSrRuRqLXwBwVY"
+    loginUrl += "&redirect_uri=" + encodeURIComponent(redirect_uri) 
+    loginUrl += "&state=" + encodeURIComponent("" + new Date());
+
+
+    window.location = ( loginUrl );
+
+    return q.promise;
+  }
+  return this;
+})
+.controller("LoginReturnCtrl", function($scope){
+  $scope.token = "Im a token";
+})
 
 
 
