@@ -1,7 +1,7 @@
 window.app = angular.module('starter.controllers', [])
 
 
-app.controller('AppCtrl', function($scope, $ionicModal, $timeout, FlightDataService) {
+app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService,Salesforce) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -20,6 +20,8 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, FlightDataServ
     $scope.modal = modal;
   });
 
+
+
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
     $scope.modal.hide();
@@ -27,7 +29,10 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, FlightDataServ
 
   // Open the login modal
   $scope.login = function() {
-    $scope.modal.show();
+    //$scope.modal.show();
+    Salesforce.login().then(function(){
+      alert("Login done");
+    });
   };
 
   // Perform the login action when the user submits the login form
@@ -57,7 +62,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, FlightDataServ
 })
 
 //Incoming-donations
-.controller('FormsCtrl', function($scope, $ionicModal, $stateParams, FlightDataService) {
+.controller('FormsCtrl', function($scope, $ionicModal, $stateParams, DataService) {
 
   $ionicModal.fromTemplateUrl('templates/incoming-donations.html', {
     scope: $scope
@@ -104,46 +109,135 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, FlightDataServ
 // out going
 
 $ionicModal.fromTemplateUrl('templates/outgoing-donations.html', {
-    scope: $scope
-  }).then(function(outmodal) {
-    $scope.outmodal = outmodal;
-  });
-
-  
-
-  $scope.outgoingDonations = function() {
-    //alert('out donation!');
-    $scope.outmodal.show();
-    };
-
-    // Close outgoing donations
-  $scope.closeOutgoingDonations = function() {
-    $scope.outmodal.hide();
-  };
-//the code for search
-  $scope.myTitle = 'Auto Complete Example';
-
-      $scope.data = { "airlines" : [], "itemName" : '' };
-      $scope.data.itemList = [];
-
-      $scope.search = function() {
-
-        FlightDataService.searchAirlines($scope.data.itemName).then(
-          function(matches) {
-            $scope.data.airlines = matches;
-          }
-        )
-      }
-
-      $scope.selectedItem = function(itemName){
-        $scope.data.airlines = [];
-        $scope.data.itemName = "";
-        var newItem = {name:itemName};
-        $scope.data.itemList.push(newItem);
-      }
-  
+  scope: $scope
+}).then(function(outmodal) {
+  $scope.outmodal = outmodal;
 });
 
+
+
+$scope.outgoingDonations = function() {
+    //alert('out donation!');
+    $scope.outmodal.show();
+  };
+
+    // Close outgoing donations
+    $scope.closeOutgoingDonations = function() {
+      $scope.outmodal.hide();
+    };
+
+
+//the code for search catagories
+//$scope.myTitle = 'Auto Complete Example';
+
+$scope.data = {}
+
+$scope.data.categories= {"list":[],"value":"",all:DataService.categories}
+$scope.data.client= {"list":[],"value":"",all:DataService.clients}
+$scope.data.clientReps= {"list":[],"value":"",all:DataService.clientReps}
+
+
+
+$scope.data.itemList = [];
+
+
+$scope.search = function(ref) {
+  DataService.search(ref.value,ref.all).then(
+    function(matches) {
+      ref.list = matches;
+    }
+    )
+}
+
+$scope.selectedCategory = function(itemNameCat){
+  $scope.data.categories.list = [];
+  $scope.data.categories.value = "";
+
+  var newItem = {name:itemNameCat};
+  $scope.data.itemList.push(newItem);
+}
+
+  $scope.globalSelectedFunction = function(itemName, ref){
+     ref.list = [];
+     ref.value = itemName;
+   }
+
+})
+
+.service("Salesforce",function($q,$http){
+  var prefix = "https://unitycare-developer-edition.na35.force.com"
+
+  var state = {};
+  this._loginComplete = function(){
+    this.loadAutocompleteData();
+   
+  }
+
+  this.login = function(){
+    state.q = $q.defer();
+
+    var redirect_uri = "https://donationflow.herokuapp.com/#/app/login_return";
+
+    var loginUrl = "https://login.salesforce.com/services/oauth2/authorize?response_type=token&client_id=3MVG9szVa2RxsqBYv25vb5u8fnRIDC_itm48NSkcQASWCTa4niLmieviNcUPJfdnE8BQk2nzSrRuRqLXwBwVY"
+    loginUrl += "&redirect_uri=" + encodeURIComponent(redirect_uri) 
+    loginUrl += "&state=" + encodeURIComponent("" + new Date());
+
+
+    window.location = ( loginUrl );
+
+    return state.q.promise;
+  }
+
+  function headers(){
+    var headers = {
+        'Content-Type': "application/json",
+        "Authorization" : "Bearer " + window.localStorage["access_token"]
+    }
+    return headers;
+  }
+
+  this.loadAutocompleteData = function(){
+
+  }
+
+  this.postOutgoing = function(data){
+    
+    $http({headers:headers(),method:"POST",url: prefix + "/services/apexrest/Outgoing",data:data}).then(function(){
+
+    })
+  }
+
+  this.queueOutgoing = function(data){
+
+  };
+
+  this.clients = ["Bob","John"];
+  this.client_reps = ["Ana","Sara"];
+  this.categories = ["Furniture"];
+
+})
+.controller("LoginReturnCtrl", function($scope,$location,Salesforce){
+  var loc = window.location + "";
+  var i = loc.indexOf("access_token=");
+  loc = loc.substring(i);
+  locA = loc.split("&");
+  var tokens = locA[0].split("=")
+  window.localStorage["access_token"] =  tokens[1];
+  $scope.token = window.localStorage["access_token"];
+  Salesforce._loginComplete();
+
+  $scope.testPost = function(){
+    var test = 
+        {
+        "Name" : "Batman" ,
+        "item" : "Pants",
+        "Count" : 1 ,
+        "Dev_staff" : "Debb51",
+        "Client_rep" : "Debb 12"
+        };
+    Salesforce.postOutgoing(test)
+  }
+})
 
 
 
