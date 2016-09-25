@@ -148,6 +148,7 @@ $scope.outgoingDonations = function() {
       $scope.data.itemList.forEach(function(value) {
         console.log(value);
         var jsonOutgoing = {}
+        jsonOutgoing.date = new Date().toISOString().substring(0,10);
         jsonOutgoing.dev_staff = $scope.data.devstaff.value
         jsonOutgoing.client_name = $scope.data.client.value
         jsonOutgoing.client_rep  = $scope.data.clientReps.value
