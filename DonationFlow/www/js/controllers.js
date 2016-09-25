@@ -62,7 +62,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService,Sa
 })
 
 //Incoming-donations
-.controller('FormsCtrl', function($scope, $ionicModal, $stateParams, DataService) {
+.controller('FormsCtrl', function($scope, $ionicModal, $stateParams, DataService, Salesforce) {
 
   $ionicModal.fromTemplateUrl('templates/incoming-donations.html', {
     scope: $scope
@@ -140,15 +140,17 @@ $scope.outgoingDonations = function() {
     //outgoing jason file > submit
     $scope.submitOutgoing = function() {
 
-      var jsonOutgoing = {
 
-      }
-
-      jsonOutgoing.client_name = $scope.data.client.value
       //jsonOutgoing.item = $scope.data.itemList.value
 
       $scope.data.itemList.forEach(function(value) {
         console.log(value);
+        var jsonOutgoing = {}
+        jsonOutgoing.client_name = $scope.data.client.value
+        jsonOutgoing.client_rep  = $scope.data.clientReps.value
+        jsonOutgoing.item =  value.name;
+        jsonOutgoing.count = parseInt(value.value);
+        Salesforce.saveOutgoing(jsonOutgoing);
       });
 
     };
