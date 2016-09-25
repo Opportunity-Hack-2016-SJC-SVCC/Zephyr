@@ -140,7 +140,7 @@ $scope.saveIncoming = function(){
         json.estimated_cost  = value.estimatedCost;
         json.item =  value.name;
         json.count = parseInt(value.value);
-        alert(JSON.stringify(json))
+        ///alert(JSON.stringify(json))
         Salesforce.saveIncoming(json);
 
       });

@@ -43,7 +43,7 @@
   <ion-list>
     <ion-item ng-repeat="item in data.itemList" class="fixitem" style="padding-right: 10px;">
 
-      <button ng-click="removeItem(item)"><i class="ion-ios-close-outline" ></i></button>
+      <button  ng-click="removeItem(item)" class="button"><i class="ion-ios-close-outline" ></i></button>
 
       {{item.name}}
       <input style="width: 40px;display:inline;float:right;" type="number" ng-model="item.value" name=""> 
@@ -52,7 +52,7 @@
 
 
   <label class="item item-input item-floating-label">
-    <input type="search" placeholder="Item categories" ng-change="search(data.categories)" ng-model="data.categories.value" >
+    <input type="search" placeholder="Item categories" ng-focus="search(data.categories)" ng-change="search(data.categories)" ng-model="data.categories.value" >
   </label>
 
   <div class="list">
