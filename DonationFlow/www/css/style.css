@@ -34,11 +34,15 @@
   cursor: url('http://ionicframework.com/img/finger.png'), auto;
 }
 
-.catlst {
+.fixitem .item-content{
+  padding-right: 0px;
+}
+/*.catlst {
+  text-align: right;
   display: inline-block;
   width: 35px;
-  float: right;
+
   font-size: 20px;
-}
+}*/
 
 

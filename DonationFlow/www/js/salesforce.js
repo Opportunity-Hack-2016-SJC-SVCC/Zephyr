@@ -43,7 +43,7 @@ function Fifo(){
     if( this.end() <= this.start() ){
       return null;
     }
-    this.setStart(this.end()+1);
+    this.setStart(this.start()+1);
   }
 
   this.size  = function(){
@@ -60,10 +60,12 @@ app.service("Salesforce",function($q,$http){
   var state = {};
   state.posting = false;
   var _this = this;
+  _this.unsyncedItems = fifo.size()
+
 
   this._loginComplete = function(){
     this.loadAutocompleteData();
-   
+    this.sync()
   }
 
   this.login = function(){
@@ -95,21 +97,29 @@ app.service("Salesforce",function($q,$http){
     })
   }
 
-  this._postOutgoing = function(data){
-    if( this.size() <= 0 ){
-      return 
-    }
-    $http({headers:headers(),method:"POST",url: prefix + "/services/apexrest/Outgoing",data:data}).then(function(){
+  // this._postOutgoing = function(data){
+  //   if( this.size() <= 0 ){
+  //     return 
+  //   }
+  //   $http({headers:headers(),method:"POST",url: prefix + "/services/apexrest/Outgoing",data:data}).then(function(){
 
-    })
+  //   })
+  // }
+
+  // this._postIncoming = function(data){
+  //   return $http({headers:headers(),method:"POST",url: prefix + "/services/apexrest/Incoming",data:data}).then(function(){
+
+  //   })
+  // }
+
+  this.isSyncing = function(){
+    return _this.posting;
   }
 
-  this._postIncoming = function(data){
-    return $http({headers:headers(),method:"POST",url: prefix + "/services/apexrest/Incoming",data:data}).then(function(){
 
-    })
+  this.sync = function(){
+    this._postNext(); 
   }
-
   this._postNext = function(data){
     if( fifo.size() <= 0 ){
       //done
@@ -136,6 +146,7 @@ app.service("Salesforce",function($q,$http){
 
       state.posting = false;
       fifo.remove();
+       _this.unsyncedItems = fifo.size()
       _this._postNext();
     },function fail(error,error2){
       state.posting = false;
@@ -145,8 +156,10 @@ app.service("Salesforce",function($q,$http){
         //this is fine
         state.posting = false;
         fifo.remove();
+        _this.unsyncedItems = fifo.size()
+
         _this._postNext();
-        return;
+         return;
       }
       if( err.length ){
         alert(errs);
@@ -164,13 +177,14 @@ app.service("Salesforce",function($q,$http){
   this.saveOutgoing = function(data){
     data.id = ("" + new Date().getTime()).substring(5);
     fifo.post({data:data,endpoint:"/services/apexrest/Outgoing"})
-    fifo.post({data:data,endpoint:"/services/apexrest/Outgoing"})
+    _this.unsyncedItems = fifo.size()
     this._postNext()
   };
 
   this.saveIncoming = function(data){
     data.id = ("" + new Date().getTime()).substring(5);
     fifo.post({data:data,endpoint:"/services/apexrest/Incoming"})
+            _this.unsyncedItems = fifo.size()
     this._postNext()
   };
 
@@ -178,9 +192,10 @@ app.service("Salesforce",function($q,$http){
   this.clients = ["Bob","John"];
   this.client_reps = ["Ana","Sara"];
   this.categories = ["Furniture"];
+  this.loadAutocompleteData()
 
 })
-.controller("LoginReturnCtrl", function($scope,$location,Salesforce){
+.controller("LoginReturnCtrl", function($scope,$location,Salesforce,$timeout,$state){
   var loc = window.location + "";
   var i = loc.indexOf("access_token=");
   loc = loc.substring(i);
@@ -189,6 +204,12 @@ app.service("Salesforce",function($q,$http){
   window.localStorage["access_token"] =  tokens[1];
   $scope.token = window.localStorage["access_token"];
   Salesforce._loginComplete();
+
+  $timeout(function(){
+      window.location = "#/app/forms"
+  },1000);
+
+  //window.location = ('#/app/forms');
 
   $scope.testPost = function(){
     var test = 
