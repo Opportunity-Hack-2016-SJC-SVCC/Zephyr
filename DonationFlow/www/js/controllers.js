@@ -55,6 +55,7 @@ angular.module('starter.controllers', [])
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 })
 
+//Incoming-donations
 .controller('FormsCtrl', function($scope, $ionicModal, $stateParams) {
 
   $ionicModal.fromTemplateUrl('templates/incoming-donations.html', {
@@ -67,24 +68,35 @@ angular.module('starter.controllers', [])
     //alert('in donation!');
     $scope.modal.show();
   };
+  // Close incoming donations
+  $scope.closeIncomingDonations = function() {
+    $scope.modal.hide();
+  };
+
+
+// out going
+
+$ionicModal.fromTemplateUrl('templates/outgoing-donations.html', {
+    scope: $scope
+  }).then(function(outmodal) {
+    $scope.outmodal = outmodal;
+  });
+
+  
 
   $scope.outgoingDonations = function() {
     //alert('out donation!');
+    $scope.outmodal.show();
+    };
+
+    // Close outgoing donations
+  $scope.closeOutgoingDonations = function() {
+    $scope.outmodal.hide();
   };
 
-  $scope.userData = {
-    staffName: '',
-    programName: '',
-    familyName: ''
-  };
-
-  $scope.incomingDonationsSubmit = function(form) {
-    alert($scope.userData.staffName);
-  };
-
+  
 });
 
 
-//})
 
 
