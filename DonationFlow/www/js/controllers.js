@@ -55,6 +55,10 @@ angular.module('starter.controllers', [])
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 })
 
+
+
+
+
 //Incoming-donations
 .controller('FormsCtrl', function($scope, $ionicModal, $stateParams) {
 
@@ -73,6 +77,32 @@ angular.module('starter.controllers', [])
     $scope.modal.hide();
   };
 
+  $scope.userData = {
+    staffName: '',
+    programName: '',
+    familyName: ''
+  }
+
+  $scope.selections = {
+  list: [
+      {
+        item: 'shoes',
+        options: [{value: 'medium'},{value: 'large'}]
+      },
+      {
+        item: 'clothes'
+      }
+      ]
+}
+
+
+
+  $scope.incomingDonationsSubmit = function(form) {
+    if(form.$valid) {
+      //$state.go('home'); + $scope.userData.staffName
+      console.log($scope .userData.staffName);
+    }
+  };  
 
 // out going
 
@@ -93,6 +123,8 @@ $ionicModal.fromTemplateUrl('templates/outgoing-donations.html', {
   $scope.closeOutgoingDonations = function() {
     $scope.outmodal.hide();
   };
+
+
 
   
 });

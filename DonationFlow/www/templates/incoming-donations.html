@@ -1,53 +1,81 @@
 <ion-modal-view>
 
-  <ion-header-bar>
-    <a class="button icon-left ion-chevron-left button-clear button-dark" ng-click="closeIncomingDonations()" style="font-weight: 500;" >Back</a>
-    <h1 class="title">Login</h1>
-    <button style="font-weight: 500;" class="button button-clear button-dark">
-      Submit
-    </button>
-  </ion-header-bar>
+<ion-header-bar>
+<a class="button icon-left ion-chevron-left button-clear button-dark" ng-click="closeIncomingDonations()" style="font-weight: 500;" >Back</a>
+<h1 class="title">Login</h1>
+<button style="font-weight: 500;" class="button button-clear button-dark">
+	Submit
+</button>
+</ion-header-bar>
 
 
-  <ion-content>
-  	<div class="content padding">
-    <h1>Incoming Donations Form</h1>
-    <form name="incomingDonationsForm" ng-submit="incomingDonationsSubmit(incomingDonationsForm)" >
-    	<div class="list" >
+<ion-content>
+<div class="content padding">
+	<h1>Incoming Donations Form</h1>
+	<form name="incomingDonationsForm" ng-submit="incomingDonationsSubmit(incomingDonationsForm)" >
+		<div class="list">
     		<!--<ion-item >
     		<ion-label>Date</ion-label>
     		<ion-datetime displayFormat="MM/DD/YYYY"  pickerFormat="MMMM YYYY" [(ngModel)]="myDate"></ion-datetime>
-    		</ion-item>-->
-    		<label class="item item-input">
+    	</ion-item>-->
+    	<label class="item item-input">
     		<span class="input-label">Date </span>
-    		<input type="date" >
-    		</label>
-    		<label class="item item-input" ng-class="{'has-errors':incomingDonationsForm.staffName.$invalid , 'no-errors':incomingDonationsForm.staffName.$valid}">
-    			<span class="input-label">Staff Name</span>
-    			<input type="text" name="staffName" ng-model="userData.staffName" required ></input>
-    		</label> 
-    		<div class="error-container" ng-show="incomingDonationsForm.staffName.$error" ng-messages="incomingDonationsForm.staffName.$error">
-    			<div ng-messages-include="error-list.html"></div>
-    		</div>
-    		<label class="item item-input" ng-class="{'has-errors':incomingDonationsForm.programName.$invalid, 'no-errors':incomingDonationsForm.programName.$valid} ">
-    			<span class="input-label">Program</span>
-    			<input type="text" name="programName" ng-model="userData.programName" required > </input>
-    		</label> 
-    		<div class="error-container" ng-show="incomingDonationsForm.programName.$error" ng-messages="incomingDonationsForm.programName.$error">
-    			<div ng-messages-include="error-list.html"></div>
-    		</div>
-    		<label class="item item-input" ng-class="{'has-errors':incomingDonationsForm.familyName.$invalid, 'no-errors':incomingDonationsForm.familyName.$valid}">
-    			<span class="input-label">Family Name</span>
-    			<input type="text" name="familyName" ng-model="userData.familyName" required > </input>
-    		</label> 
-    		<div class="error-container" ng-show="incomingDonationsForm.familyName.$error" ng-messages="incomingDonationsForm.familyName.$error">
-    			<div ng-messages-include="error-list.html"></div>
-    		</div>
-    		<button class="button button-full button-positive" type="submit">
-    			Submit
-    		</button>
+    		<input type="date" placeholder="Date">
+    	</label>
+    	<label class="item item-input item-floating-label" ng-class="{'has-errors':incomingDonationsForm.staffName.$invalid, 'no-errors':incomingDonationsForm.staffName.$valid}">
+    		<span class="input-label">Staff Name</span>
+    		<input type="text" name="staffName" ng-model="userData.staffName" required placeholder="Staff Name"></input>
+    	</label> 
+    	<div class="error-container" ng-show="incomingDonationsForm.staffName.$error"   ng-hide="incomingDonationsForm.staffName.$valid" ng-messages="incomingDonationsForm.staffName.$error " >
+    		<!--<div ng-messages-include="error-list.html"></div>-->
+    		<div class="error" ng-message="required">
+      		<i class="ion-information-circled"></i>
+      		This field is required!
+      		</div>
     	</div>
-    </form>
-	</div>
-  </ion-content>
+    	<label class="item item-input item-floating-label" ng-class="{'has-errors':incomingDonationsForm.programName.$invalid, 'no-errors':incomingDonationsForm.programName.$valid} ">
+    		<span class="input-label">Program</span>
+    		<input type="text" name="programName" ng-model="userData.programName" required placeholder="Program Name"> </input>
+    	</label> 
+    	<div class="error-container" ng-show="incomingDonationsForm.programName.$error" ng-hide="incomingDonationsForm.programName.$valid" ng-messages="incomingDonationsForm.programName.$error">
+    		<div class="error" ng-message="required">
+      		<i class="ion-information-circled"></i>
+      		This field is required!
+      		</div>
+    	</div>
+    	<label class="item item-input item-floating-label" ng-class="{'has-errors':incomingDonationsForm.familyName.$invalid, 'no-errors':incomingDonationsForm.familyName.$valid}">
+    		<span class="input-label">Family Name</span>
+    		<input type="text" name="familyName" ng-model="userData.familyName" required placeholder="Family Name"> </input>
+    	</label> 
+    	<div class="error-container" ng-show="incomingDonationsForm.familyName.$error" ng-hide="incomingDonationsForm.familyName.$valid" ng-messages="incomingDonationsForm.familyName.$error">
+    		<div class="error" ng-message="required">
+      		<i class="ion-information-circled"></i>
+      		This field is required!
+      		</div>
+    	</div>
+    	<div class="list">
+    		<!-- <div class="item-input" ng-repeat="input in selections.list"> -->
+    				<select ng-model="selectedItem" placeholder="Select an item" ng-options="input.item for input in selections.list">
+    					<option value=" ">-------choose--------</option>
+    				</select>	
+    				<!-- <input type="select" placeholder="Type something" ng-model="input.value" /> -->
+            <!--<select ng-repeat="option in input">
+              <option>{{option.item}}</option>
+          </select>-->
+      </div>
+          {{input.item}}
+      <button class="button button-small button-balanced" ng-if="$index == inputs.length - 1" ng-click="addInput()">
+      	<i class="icon ion-plus"></i>
+      </button>
+      <button class="button button-small button-assertive" ng-if="$index != inputs.length - 1" ng-click="removeInput($index)">
+      	<i class="icon ion-minus"></i>
+      </button>
+  </div>
+  <button class="button button-full button-positive" type="submit">
+  	Submit
+  </button>
+</div>
+</form>
+</div>
+</ion-content>
 </ion-modal-view>
