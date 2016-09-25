@@ -1,7 +1,7 @@
 window.app = angular.module('starter.controllers', [])
 
 
-app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService,Salesforce) {
+app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -29,10 +29,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService,Sa
 
   // Open the login modal
   $scope.login = function() {
-    //$scope.modal.show();
-    Salesforce.login().then(function(){
-      alert("Login done");
-    });
+    $scope.modal.show();
   };
 
   // Perform the login action when the user submits the login form
@@ -79,41 +76,6 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService,Sa
     $scope.modal.hide();
   };
 
-  $scope.userData = {
-    staffName: '',
-    programName: '',
-    familyName: '',
-    date: '',
-    donorName: '',
-    address: '',
-    email: '',
-    phno: '',
-    estimatedCost: 0,
-    quantity: 0
-  }
-
-  /*$scope.selections = {
-  list: [
-      {
-        item: 'shoes',
-        options: [{value: 'medium'},{value: 'large'}]
-      },
-      {
-        item: 'clothes'
-      }
-      ]
-}
-*/
-$scope.removeInput = function(index) {
-  $scope.data.itemList.splice(index, 1);
-}
-
-  $scope.incomingDonationsSubmit = function(form) {
-    if(form.$valid) {
-      //$state.go('home'); + $scope.userData.staffName
-      console.log($scope .userData.staffName);
-    }
-  };  
 
 // out going
 
@@ -123,9 +85,7 @@ $ionicModal.fromTemplateUrl('templates/outgoing-donations.html', {
   $scope.outmodal = outmodal;
 });
 
-$scope.removeInput = function(index) {
-  $scope.data.itemList.splice(index, 1);
-}
+
 
 $scope.outgoingDonations = function() {
     //alert('out donation!');
@@ -137,21 +97,6 @@ $scope.outgoingDonations = function() {
       $scope.outmodal.hide();
     };
 
-    //outgoing jason file > submit
-    $scope.submitOutgoing = function() {
-
-      var jsonOutgoing = {
-
-      }
-
-      jsonOutgoing.client_name = $scope.data.client.value
-      //jsonOutgoing.item = $scope.data.itemList.value
-
-      $scope.data.itemList.forEach(function(value) {
-        console.log(value);
-      });
-
-    };
 
 //the code for search catagories
 //$scope.myTitle = 'Auto Complete Example';
@@ -178,9 +123,8 @@ $scope.search = function(ref) {
 $scope.selectedCategory = function(itemNameCat){
   $scope.data.categories.list = [];
   $scope.data.categories.value = "";
-  $scope.data.categories.quantity = 0;
+
   var newItem = {name:itemNameCat};
-  newItem.value = 1;
   $scope.data.itemList.push(newItem);
 }
 
@@ -189,9 +133,11 @@ $scope.selectedCategory = function(itemNameCat){
      ref.value = itemName;
    }
 
-})
+});
 
 
 
+ // //Global Function for search
 
+ 
 

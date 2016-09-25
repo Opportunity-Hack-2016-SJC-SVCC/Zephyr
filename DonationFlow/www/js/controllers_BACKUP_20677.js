@@ -1,8 +1,13 @@
 window.app = angular.module('starter.controllers', [])
 
 
-app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService,Salesforce) {
+<<<<<<< HEAD
+app.controller('AppCtrl', function($scope, $ionicModal, $timeout,Salesforce,FlightDataService) {
+ 
+=======
+app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService) {
 
+>>>>>>> general autocompletion
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -82,17 +87,10 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService,Sa
   $scope.userData = {
     staffName: '',
     programName: '',
-    familyName: '',
-    date: '',
-    donorName: '',
-    address: '',
-    email: '',
-    phno: '',
-    estimatedCost: 0,
-    quantity: 0
+    familyName: ''
   }
 
-  /*$scope.selections = {
+  $scope.selections = {
   list: [
       {
         item: 'shoes',
@@ -103,10 +101,8 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService,Sa
       }
       ]
 }
-*/
-$scope.removeInput = function(index) {
-  $scope.data.itemList.splice(index, 1);
-}
+
+
 
   $scope.incomingDonationsSubmit = function(form) {
     if(form.$valid) {
@@ -123,9 +119,7 @@ $ionicModal.fromTemplateUrl('templates/outgoing-donations.html', {
   $scope.outmodal = outmodal;
 });
 
-$scope.removeInput = function(index) {
-  $scope.data.itemList.splice(index, 1);
-}
+
 
 $scope.outgoingDonations = function() {
     //alert('out donation!');
@@ -133,25 +127,57 @@ $scope.outgoingDonations = function() {
   };
 
     // Close outgoing donations
+<<<<<<< HEAD
+  $scope.closeOutgoingDonations = function() {
+    $scope.outmodal.hide();
+  };
+//the code for search
+  $scope.myTitle = 'Auto Complete Example';
+
+      $scope.data = { "airlines" : [], "itemName" : '' };
+      $scope.data.itemList = [];
+
+      $scope.search = function() {
+
+        FlightDataService.searchAirlines($scope.data.itemName).then(
+          function(matches) {
+            $scope.data.airlines = matches;
+          }
+        )
+      }
+
+      $scope.selectedItem = function(itemName){
+        $scope.data.airlines = [];
+        $scope.data.itemName = "";
+        var newItem = {name:itemName};
+        $scope.data.itemList.push(newItem);
+      }
+  
+})
+
+.service("Salesforce",function($q,$http){
+  var prefix = "https://unitycare-developer-edition.na35.force.com"
+
+  var state = {};
+  this._loginComplete = function(){
+    this.loadAutocompleteData();
+   
+  }
+
+  this.login = function(){
+    state.q = $q.defer();
+
+    var redirect_uri = "https://donationflow.herokuapp.com/#/app/login_return";
+
+    var loginUrl = "https://login.salesforce.com/services/oauth2/authorize?response_type=token&client_id=3MVG9szVa2RxsqBYv25vb5u8fnRIDC_itm48NSkcQASWCTa4niLmieviNcUPJfdnE8BQk2nzSrRuRqLXwBwVY"
+    loginUrl += "&redirect_uri=" + encodeURIComponent(redirect_uri) 
+    loginUrl += "&state=" + encodeURIComponent("" + new Date());
+
+=======
     $scope.closeOutgoingDonations = function() {
       $scope.outmodal.hide();
     };
 
-    //outgoing jason file > submit
-    $scope.submitOutgoing = function() {
-
-      var jsonOutgoing = {
-
-      }
-
-      jsonOutgoing.client_name = $scope.data.client.value
-      //jsonOutgoing.item = $scope.data.itemList.value
-
-      $scope.data.itemList.forEach(function(value) {
-        console.log(value);
-      });
-
-    };
 
 //the code for search catagories
 //$scope.myTitle = 'Auto Complete Example';
@@ -178,9 +204,8 @@ $scope.search = function(ref) {
 $scope.selectedCategory = function(itemNameCat){
   $scope.data.categories.list = [];
   $scope.data.categories.value = "";
-  $scope.data.categories.quantity = 0;
+
   var newItem = {name:itemNameCat};
-  newItem.value = 1;
   $scope.data.itemList.push(newItem);
 }
 
@@ -189,9 +214,67 @@ $scope.selectedCategory = function(itemNameCat){
      ref.value = itemName;
    }
 
+});
+>>>>>>> general autocompletion
+
+    window.location = ( loginUrl );
+
+    return state.q.promise;
+  }
+
+  function headers(){
+    var headers = {
+        'Content-Type': "application/json",
+        "Authorization" : "Bearer " + window.localStorage["access_token"]
+    }
+    return headers;
+  }
+
+  this.loadAutocompleteData = function(){
+
+  }
+
+  this.postOutgoing = function(data){
+    
+    $http({headers:headers(),method:"POST",url: prefix + "/services/apexrest/Outgoing",data:data}).then(function(){
+
+    })
+  }
+
+  this.queueOutgoing = function(data){
+
+  };
+
+  this.clients = ["Bob","John"];
+  this.client_reps = ["Ana","Sara"];
+  this.categories = ["Furniture"];
+
+})
+.controller("LoginReturnCtrl", function($scope,$location,Salesforce){
+  var loc = window.location + "";
+  var i = loc.indexOf("access_token=");
+  loc = loc.substring(i);
+  locA = loc.split("&");
+  var tokens = locA[0].split("=")
+  window.localStorage["access_token"] =  tokens[1];
+  $scope.token = window.localStorage["access_token"];
+  Salesforce._loginComplete();
+
+  $scope.testPost = function(){
+    var test = 
+        {
+        "Name" : "Batman" ,
+        "item" : "Pants",
+        "Count" : 1 ,
+        "Dev_staff" : "Debb51",
+        "Client_rep" : "Debb 12"
+        };
+    Salesforce.postOutgoing(test)
+  }
 })
 
 
+ // //Global Function for search
 
-
+ 
 
