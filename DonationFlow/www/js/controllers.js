@@ -149,7 +149,7 @@ $scope.saveIncoming = function(){
 
 
       // window.localStorage["devstaff"] = $scope.data.devstaff.value
-      // $scope.data.itemList = []
+      $scope.data.itemList = []
       // $scope.data.client.value = ""
       // $scope.data.clientReps.value = ""
       $scope.modal.hide();
