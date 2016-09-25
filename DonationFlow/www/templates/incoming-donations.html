@@ -46,10 +46,11 @@
     		<input type="text" name="programName" ng-model="userData.programName" required placeholder="Program Name(*)"> </input>
     	</label> 
        <div>
-    <li class="item" ng-repeat="item in data.itemList">{{item.name}}  &nbsp;<input number placeholder="Quantity" ng-model="userData.quantity"></input>&nbsp; <input number placeholder="Estimated Cost" ng-model="userData.estimatedCost"></input>
-    <button class="button button-small button-assertive" ng-if="$index != inputs.length - 1" ng-click="removeInput($index)">
-      	<i class="icon ion-minus"></i>
-      </button>
+    <li class="item" ng-repeat="item in data.itemList"><button ng-if="$index != inputs.length - 1" ng-click="removeInput($index)">
+      	<i class="ion-ios-close-outline" ></i>
+      </button> &nbsp; {{item.name}}  &nbsp;<input style="width: 40px;display:inline;float:right;" type="number" placeholder="Quantity" ng-model="item.value">
+    </input>&nbsp; <input type="number" placeholder="Estimated Cost" ng-model="item.estimatedCost"></input>
+    
     </li>
   </div>
   <label class="item item-input item-floating-label">

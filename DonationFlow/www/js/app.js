@@ -59,7 +59,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       }
     })
-  .state('app.pending', {
+  /*.state('app.pending', {
       url: '/pending',
       views: {
         'menuContent': {
@@ -67,7 +67,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
           
         }
       }
-    })
+    })*/
   .state('app.reports', {
       url: '/reports',
       views: {
