@@ -105,18 +105,7 @@ phone : ''
     quantity: 0
   }*/
 
-  /*$scope.selections = {
-  list: [
-      {
-        item: 'shoes',
-        options: [{value: 'medium'},{value: 'large'}]
-      },
-      {
-        item: 'clothes'
-      }
-      ]
-}
-*/
+
 $scope.removeInput = function(index) {
   $scope.data.itemList.splice(index, 1);
 }
