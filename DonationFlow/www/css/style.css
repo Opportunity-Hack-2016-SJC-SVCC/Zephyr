@@ -33,3 +33,12 @@
 .search_nav{
   cursor: url('http://ionicframework.com/img/finger.png'), auto;
 }
+
+.catlst {
+  display: inline-block;
+  width: 35px;
+  float: right;
+  font-size: 20px;
+}
+
+

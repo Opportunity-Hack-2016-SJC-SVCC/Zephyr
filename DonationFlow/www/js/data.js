@@ -4,6 +4,8 @@ var clients = ["Carol","Rebecca","Paula"];
 var staffs = ["Peter","Helena","Aanya"]; 
 var representatives = ["Tom","Anja","Jasmin"];
 
+categories = window.categoryListRaw.map(function(cat){return cat.item;});
+
 var sortStrings = function(a, b) {
 
     var airlineA = a.toLowerCase();
