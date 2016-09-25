@@ -87,16 +87,19 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService,Sa
     $scope.modal.hide();
   };
 
-$scope.userData = {
-  item: '',
- donor_name : '' ,
-count : 15 ,
-dev_staff : '' ,
-created: '' ,
-estimated_cost : 0 , 
-email : '',
-phone : ''
+function emptyUserData(){
+  return {
+    item: '',
+   donor_name : '' ,
+  count : 15 ,
+  dev_staff : '' ,
+  created: '' ,
+  estimated_cost : 0 , 
+  email : '',
+  phone : ''
+  }
 }
+$scope.userData = emptyUserData();
 
   /*$scope.userData = {
     staffName: '',
@@ -122,6 +125,35 @@ $scope.removeInput = function(index) {
       console.log($scope .userData.staffName);
     }
   };  
+
+
+$scope.saveIncoming = function(){
+    $scope.data.itemList.forEach(function(value) {
+        console.log(value);
+        var json = {}
+        json.created =  ($scope.userData.date || new Date()).toISOString().substring(0,10);
+        json.dev_staff = $scope.userData.staffName;
+        json.donor_name = $scope.userData.donorName;
+        json.email  = $scope.userData.email;
+        json.address  = $scope.userData.address;
+        json.phone  = $scope.userData.phone;
+        json.estimated_cost  = value.estimatedCost;
+        json.item =  value.name;
+        json.count = parseInt(value.value);
+        alert(JSON.stringify(json))
+        Salesforce.saveIncoming(json);
+
+      });
+
+    $scope.userData = emptyUserData();
+
+
+      // window.localStorage["devstaff"] = $scope.data.devstaff.value
+      // $scope.data.itemList = []
+      // $scope.data.client.value = ""
+      // $scope.data.clientReps.value = ""
+      $scope.modal.hide();
+}
 
 // out going
 

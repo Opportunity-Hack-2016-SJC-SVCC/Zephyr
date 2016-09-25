@@ -33,7 +33,7 @@
 
     	<label class="item item-input item-floating-label">
     		<span class="input-label">Phone No</span>
-    		<input type="text" name="phno" ng-model="userData.phno" required placeholder="Phone No"> </input>
+    		<input type="text" name="phno" ng-model="userData.phone" required placeholder="Phone No"> </input>
     	</label> 
 
     	<label class="item item-input item-floating-label" ng-class="{'has-errors':incomingDonationsForm.staffName.$invalid , 'no-errors':incomingDonationsForm.staffName.$valid}">
@@ -63,13 +63,11 @@
 </div>
 
   </div>
-  <div layout="row" layout-align="center center">
-  <button class="button button-positive" type="submit">
-  	Submit
+  <div layout="row" layout-align="center center" class="padding">
+  <button class="button-block button-positive button" type="submit" ng-click="saveIncoming()">
+  	Save
   </button>
-  <button class="button button-positive" type="submit">
-  	Cancel
-  </button>
+ 
 </div>
 </div>
 </form>
