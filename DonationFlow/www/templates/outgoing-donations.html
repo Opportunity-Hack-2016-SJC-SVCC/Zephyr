@@ -37,11 +37,21 @@
   </div>
 
 
-  <div>
-    <li class="item" ng-repeat="item in data.itemList"> <i class="ion-ios-close-outline" style = ""></i>  {{item.name}}<input class = "catlst" type="number" ng-model="item.value" name=""></li>
-  </div>
+  <ion-list>
+    <!-- li class="item" ng-repeat="item in data.itemList"> -->
+
+  <ion-item ng-repeat="item in data.itemList" class="fixitem" style="padding-right: 10px;">
+    <!-- <ion-delete-button class="ion-minus-circled" ng-click="removeItem(item)"></ion-delete-button> -->
+    <button ng-click="removeItem(item)"><i class="ion-ios-close-outline" ></i></button>
+   
+    {{item.name}}
+    <input class = "catlst"  style="width: 40px;display:inline;float:right;" type="number" ng-model="item.value" name=""> 
+ </ion-item>
+ </ion-list>
+
+
   <label class="item item-input item-floating-label">
-    <input type="search" placeholder="Search" ng-change="search(data.categories)" ng-model="data.categories.value">
+    <input type="search" placeholder="Search" ng-change="search(data.categories)" ng-model="data.categories.value" >
   </label>
 
   <div class="list">

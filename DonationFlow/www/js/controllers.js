@@ -157,6 +157,21 @@ $scope.outgoingDonations = function() {
       $scope.outmodal.hide();
     };
 
+    ///REMOVE AN ITEM
+    $scope.removeItem = function(item){
+ 
+      for(i = 0; i < $scope.data.itemList.length; i++) {
+   
+        if($scope.data.itemList[i] == item){
+          $scope.data.itemList.splice(i, 1);
+          break;
+        }
+
+      }
+    }
+ 
+  
+
 //the code for search catagories
 //$scope.myTitle = 'Auto Complete Example';
 
