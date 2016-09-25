@@ -43,7 +43,7 @@
   <ion-list>
     <ion-item ng-repeat="item in data.itemList" class="fixitem" style="padding-right: 10px;">
 
-      <button ng-click="removeItem(item)"><i class="ion-ios-close-outline" ></i></button>
+      <i class="ion-ios-close-outline"  ng-click="removeItem(item)" ></i>
 
       {{item.name}}
       <input style="width: 40px;display:inline;float:right;" type="number" ng-model="item.value" name=""> 
