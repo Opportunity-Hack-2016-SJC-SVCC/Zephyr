@@ -148,6 +148,7 @@ $scope.outgoingDonations = function() {
       $scope.data.itemList.forEach(function(value) {
         console.log(value);
         var jsonOutgoing = {}
+        jsonOutgoing.dev_staff = $scope.data.devstaff.value
         jsonOutgoing.client_name = $scope.data.client.value
         jsonOutgoing.client_rep  = $scope.data.clientReps.value
         jsonOutgoing.item =  value.name;
@@ -176,7 +177,7 @@ $scope.outgoingDonations = function() {
 //$scope.myTitle = 'Auto Complete Example';
 
 $scope.data = {}
-
+$scope.data.devstaff= {"list":[],"value":""}
 $scope.data.categories= {"list":[],"value":"",all:DataService.categories}
 $scope.data.client= {"list":[],"value":"",all:DataService.clients}
 $scope.data.clientReps= {"list":[],"value":"",all:DataService.clientReps}

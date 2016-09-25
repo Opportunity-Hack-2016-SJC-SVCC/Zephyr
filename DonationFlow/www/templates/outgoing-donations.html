@@ -10,6 +10,11 @@
     <h3   style="text-align:center; color: #000080;">Outgoing Donations</h3>
   </div>
   
+ <!-- development  staff -->
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Development staff</span>
+    <input type="text" placeholder="Development staff" ng-model="data.devstaff.value">
+  </label>
 
   <!-- client name -->
 
@@ -21,6 +26,8 @@
   <div class="list">
     <li class="clientName item " ng-repeat="client in data.client.list" ng-click = "globalSelectedFunction('{{client}}', data.client)">{{client}}</li>
   </div>
+
+
 
   <!-- client Representative -->
 
@@ -34,7 +41,6 @@
   </div>
 
   <ion-list>
-
     <ion-item ng-repeat="item in data.itemList" class="fixitem" style="padding-right: 10px;">
 
       <button ng-click="removeItem(item)"><i class="ion-ios-close-outline" ></i></button>
