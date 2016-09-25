@@ -29,7 +29,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout,Salesforce,Data
   $scope.login = function() {
     //$scope.modal.show();
     Salesforce.login().then(function(){
-
+      alert("Login done");
     });
   };
 
@@ -147,9 +147,17 @@ $ionicModal.fromTemplateUrl('templates/outgoing-donations.html', {
   
 })
 
-.factory("Login",function($q){
+.service("Salesforce",function($q,$http){
+  var prefix = "https://unitycare-developer-edition.na35.force.com"
+
+  var state = {};
+  this._loginComplete = function(){
+    this.loadAutocompleteData();
+    state.resolve();
+  }
+
   this.login = function(){
-    var q = $q.defer();
+    state.q = $q.defer();
 
     var redirect_uri = "https://donationflow.herokuapp.com/#/app/login_return";
 
@@ -160,21 +168,36 @@ $ionicModal.fromTemplateUrl('templates/outgoing-donations.html', {
 
     window.location = ( loginUrl );
 
-    return q.promise;
+    return state.q.promise;
   }
-  return this;
-})
-.factory("Salesforce",function($q,$http){
-  this.postOutgoing = function(data){
+
+  function headers(){
     var headers = {
         'Content-Type': "application/json",
         "Authorization" : "Bearer " + window.localStorage["access_token"]
     }
-    $http({headers:headers,method:"POST",url:"https://unitycare-developer-edition.na35.force.com/services/apexrest/Outgoing",data:data}).then(function(){
+    return headers;
+  }
+
+  this.loadAutocompleteData = function(){
+
+  }
+
+  this.postOutgoing = function(data){
+    
+    $http({headers:headers(),method:"POST",url: prefix + "/services/apexrest/Outgoing",data:data}).then(function(){
 
     })
   }
-  return this;
+
+  this.queueOutgoing = function(data){
+
+  };
+
+  this.clients = ["Bob","John"];
+  this.client_reps = ["Ana","Sara"];
+  this.categories = ["Furniture"];
+
 })
 .controller("LoginReturnCtrl", function($scope,$location,Salesforce){
   var loc = window.location + "";
@@ -184,6 +207,7 @@ $ionicModal.fromTemplateUrl('templates/outgoing-donations.html', {
   var tokens = locA[0].split("=")
   window.localStorage["access_token"] =  tokens[1];
   $scope.token = window.localStorage["access_token"];
+  Salesforce._loginComplete();
 
   $scope.testPost = function(){
     var test = 
@@ -193,7 +217,6 @@ $ionicModal.fromTemplateUrl('templates/outgoing-donations.html', {
         "Count" : 1 ,
         "Dev_staff" : "Debb51",
         "Client_rep" : "Debb 12"
-
         };
     Salesforce.postOutgoing(test)
   }
