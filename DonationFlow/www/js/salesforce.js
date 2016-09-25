@@ -65,7 +65,7 @@ app.service("Salesforce",function($q,$http){
 
   this._loginComplete = function(){
     this.loadAutocompleteData();
-   
+    this.sync()
   }
 
   this.login = function(){
@@ -97,20 +97,20 @@ app.service("Salesforce",function($q,$http){
     })
   }
 
-  this._postOutgoing = function(data){
-    if( this.size() <= 0 ){
-      return 
-    }
-    $http({headers:headers(),method:"POST",url: prefix + "/services/apexrest/Outgoing",data:data}).then(function(){
+  // this._postOutgoing = function(data){
+  //   if( this.size() <= 0 ){
+  //     return 
+  //   }
+  //   $http({headers:headers(),method:"POST",url: prefix + "/services/apexrest/Outgoing",data:data}).then(function(){
 
-    })
-  }
+  //   })
+  // }
 
-  this._postIncoming = function(data){
-    return $http({headers:headers(),method:"POST",url: prefix + "/services/apexrest/Incoming",data:data}).then(function(){
+  // this._postIncoming = function(data){
+  //   return $http({headers:headers(),method:"POST",url: prefix + "/services/apexrest/Incoming",data:data}).then(function(){
 
-    })
-  }
+  //   })
+  // }
 
   this.isSyncing = function(){
     return _this.posting;
@@ -192,9 +192,10 @@ app.service("Salesforce",function($q,$http){
   this.clients = ["Bob","John"];
   this.client_reps = ["Ana","Sara"];
   this.categories = ["Furniture"];
+  this.loadAutocompleteData()
 
 })
-.controller("LoginReturnCtrl", function($scope,$location,Salesforce){
+.controller("LoginReturnCtrl", function($scope,$location,Salesforce,$timeout,$state){
   var loc = window.location + "";
   var i = loc.indexOf("access_token=");
   loc = loc.substring(i);
@@ -204,7 +205,11 @@ app.service("Salesforce",function($q,$http){
   $scope.token = window.localStorage["access_token"];
   Salesforce._loginComplete();
 
-  $state.go('app.forms');
+  $timeout(function(){
+      window.location = "#/app/forms"
+  },1000);
+
+  //window.location = ('#/app/forms');
 
   $scope.testPost = function(){
     var test = 
