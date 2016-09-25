@@ -204,6 +204,8 @@ app.service("Salesforce",function($q,$http){
   $scope.token = window.localStorage["access_token"];
   Salesforce._loginComplete();
 
+  $state.go('app.forms');
+
   $scope.testPost = function(){
     var test = 
         {
