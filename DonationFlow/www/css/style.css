@@ -29,3 +29,7 @@
 .last-error-container > .error {
   padding: 10px 16px 0;
 }
+
+.search_nav{
+  cursor: url('http://ionicframework.com/img/finger.png'), auto;
+}

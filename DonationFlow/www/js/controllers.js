@@ -1,6 +1,7 @@
-angular.module('starter.controllers', [])
+window.app = angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+
+app.controller('AppCtrl', function($scope, $ionicModal, $timeout, FlightDataService) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -56,7 +57,7 @@ angular.module('starter.controllers', [])
 })
 
 //Incoming-donations
-.controller('FormsCtrl', function($scope, $ionicModal, $stateParams) {
+.controller('FormsCtrl', function($scope, $ionicModal, $stateParams, FlightDataService) {
 
   $ionicModal.fromTemplateUrl('templates/incoming-donations.html', {
     scope: $scope
@@ -93,7 +94,24 @@ $ionicModal.fromTemplateUrl('templates/outgoing-donations.html', {
   $scope.closeOutgoingDonations = function() {
     $scope.outmodal.hide();
   };
+//the code for search
+  $scope.myTitle = 'Auto Complete Example';
 
+      $scope.data = { "airlines" : [], "itemName" : '' };
+
+      $scope.search = function() {
+
+        FlightDataService.searchAirlines($scope.data.itemName).then(
+          function(matches) {
+            $scope.data.airlines = matches;
+          }
+        )
+      }
+
+      $scope.selectedItem = function(itemName){
+        $scope.data.airlines = [];
+        $scope.data.itemName = itemName;
+      }
   
 });
 
