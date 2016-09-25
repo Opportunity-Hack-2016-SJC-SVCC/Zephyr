@@ -64,6 +64,8 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService,Sa
 //Incoming-donations
 .controller('FormsCtrl', function($scope, $ionicModal, $stateParams, DataService, Salesforce) {
 
+  $scope.Salesforce = Salesforce
+  
   $ionicModal.fromTemplateUrl('templates/incoming-donations.html', {
     scope: $scope
   }).then(function(modal) {
@@ -152,7 +154,7 @@ $scope.outgoingDonations = function() {
         jsonOutgoing.count = parseInt(value.value);
         Salesforce.saveOutgoing(jsonOutgoing);
       });
-
+      $scope.outmodal.hide();
     };
 
 //the code for search catagories

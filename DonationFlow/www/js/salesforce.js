@@ -43,7 +43,7 @@ function Fifo(){
     if( this.end() <= this.start() ){
       return null;
     }
-    this.setStart(this.end()+1);
+    this.setStart(this.start()+1);
   }
 
   this.size  = function(){
@@ -60,6 +60,8 @@ app.service("Salesforce",function($q,$http){
   var state = {};
   state.posting = false;
   var _this = this;
+  _this.unsyncedItems = fifo.size()
+
 
   this._loginComplete = function(){
     this.loadAutocompleteData();
@@ -110,6 +112,14 @@ app.service("Salesforce",function($q,$http){
     })
   }
 
+  this.isSyncing = function(){
+    return _this.posting;
+  }
+
+
+  this.sync = function(){
+    this._postNext(); 
+  }
   this._postNext = function(data){
     if( fifo.size() <= 0 ){
       //done
@@ -136,6 +146,7 @@ app.service("Salesforce",function($q,$http){
 
       state.posting = false;
       fifo.remove();
+       _this.unsyncedItems = fifo.size()
       _this._postNext();
     },function fail(error,error2){
       state.posting = false;
@@ -145,8 +156,10 @@ app.service("Salesforce",function($q,$http){
         //this is fine
         state.posting = false;
         fifo.remove();
+        _this.unsyncedItems = fifo.size()
+
         _this._postNext();
-        return;
+         return;
       }
       if( err.length ){
         alert(errs);
@@ -164,13 +177,14 @@ app.service("Salesforce",function($q,$http){
   this.saveOutgoing = function(data){
     data.id = ("" + new Date().getTime()).substring(5);
     fifo.post({data:data,endpoint:"/services/apexrest/Outgoing"})
-    fifo.post({data:data,endpoint:"/services/apexrest/Outgoing"})
+    _this.unsyncedItems = fifo.size()
     this._postNext()
   };
 
   this.saveIncoming = function(data){
     data.id = ("" + new Date().getTime()).substring(5);
     fifo.post({data:data,endpoint:"/services/apexrest/Incoming"})
+            _this.unsyncedItems = fifo.size()
     this._postNext()
   };
 
