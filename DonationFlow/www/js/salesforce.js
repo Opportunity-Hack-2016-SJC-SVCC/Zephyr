@@ -174,6 +174,12 @@ app.service("Salesforce",function($q,$http){
     })
   }
 
+  this.clearData = function(){
+    _this.unsyncedItems = 0;
+    fifo.setStart(0);
+    fifo.setEnd(0);
+  }
+
   this.saveOutgoing = function(data){
     data.id = ("" + new Date().getTime()).substring(5);
     fifo.post({data:data,endpoint:"/services/apexrest/Outgoing"})

@@ -35,6 +35,12 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService,Sa
     });
   };
 
+  $scope.clearData = function(){
+    if( confirm("Are you sure? What's not on saleforce yet, will be lost.") ){
+      Salesforce.clearData()
+    }
+  }
+
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
     console.log('Doing login', $scope.loginData);
