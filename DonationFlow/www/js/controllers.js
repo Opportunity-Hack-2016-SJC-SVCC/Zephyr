@@ -153,7 +153,7 @@ $ionicModal.fromTemplateUrl('templates/outgoing-donations.html', {
   var state = {};
   this._loginComplete = function(){
     this.loadAutocompleteData();
-    state.resolve();
+    state.q.resolve();
   }
 
   this.login = function(){
