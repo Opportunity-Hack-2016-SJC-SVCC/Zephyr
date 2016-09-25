@@ -2,7 +2,7 @@
 
   <ion-header-bar>
     <a class="button icon-left ion-chevron-left button-clear button-dark" ng-click="closeOutgoingDonations()" style="font-weight: 500;" >Back</a>
-    <h1 class="title">Login</h1>
+    <h1 class="title">Outgoing Form</h1>
     <button style="font-weight: 500;" class="button button-clear button-dark">
       Submit
     </button>
@@ -39,10 +39,15 @@
 
 
   <div>
-    <li class="item" ng-repeat="item in data.itemList">{{item.name}}</li>
+    <li class="item" ng-repeat="item in data.itemList">{{item.name}}
+        &nbsp;<input number placeholder="Quantity" ng-model="data.categories.quantity"></input>&nbsp;
+      <button class="button button-small button-assertive" ng-if="$index != inputs.length - 1" ng-click="removeInput($index)">
+        <i class="icon ion-minus"></i>
+      </button>
+    </li>
   </div>
   <label class="item item-input item-floating-label">
-    <input type="search" placeholder="Search" ng-change="search(data.categories)" ng-model="data.categories.value">
+    <input type="search" placeholder="Category" ng-change="search(data.categories)" ng-model="data.categories.value">
   </label>
   <button class="button button-positive">
     Cancel

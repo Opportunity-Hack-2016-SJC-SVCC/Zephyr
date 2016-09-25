@@ -82,10 +82,17 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService,Sa
   $scope.userData = {
     staffName: '',
     programName: '',
-    familyName: ''
+    familyName: '',
+    date: '',
+    donorName: '',
+    address: '',
+    email: '',
+    phno: '',
+    estimatedCost: 0,
+    quantity: 0
   }
 
-  $scope.selections = {
+  /*$scope.selections = {
   list: [
       {
         item: 'shoes',
@@ -96,8 +103,10 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService,Sa
       }
       ]
 }
-
-
+*/
+$scope.removeInput = function(index) {
+  $scope.data.itemList.splice(index, 1);
+}
 
   $scope.incomingDonationsSubmit = function(form) {
     if(form.$valid) {
@@ -114,7 +123,9 @@ $ionicModal.fromTemplateUrl('templates/outgoing-donations.html', {
   $scope.outmodal = outmodal;
 });
 
-
+$scope.removeInput = function(index) {
+  $scope.data.itemList.splice(index, 1);
+}
 
 $scope.outgoingDonations = function() {
     //alert('out donation!');
@@ -152,7 +163,7 @@ $scope.search = function(ref) {
 $scope.selectedCategory = function(itemNameCat){
   $scope.data.categories.list = [];
   $scope.data.categories.value = "";
-
+  $scope.data.categories.quantity = 0;
   var newItem = {name:itemNameCat};
   $scope.data.itemList.push(newItem);
 }
