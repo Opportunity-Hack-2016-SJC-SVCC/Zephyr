@@ -207,6 +207,7 @@ app.service("Salesforce",function($q,$http){
 
   $timeout(function(){
       window.location = "#/app/forms"
+      //window.location.reload();
   },1000);
 
   //window.location = ('#/app/forms');
