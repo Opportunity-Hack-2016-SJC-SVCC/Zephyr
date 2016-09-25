@@ -79,7 +79,18 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService,Sa
     $scope.modal.hide();
   };
 
-  $scope.userData = {
+$scope.userData = {
+  item: '',
+ donor_name : '' ,
+count : 15 ,
+dev_staff : '' ,
+created: '' ,
+estimated_cost : 0 , 
+email : '',
+phone : ''
+}
+
+  /*$scope.userData = {
     staffName: '',
     programName: '',
     familyName: '',
@@ -90,7 +101,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService,Sa
     phno: '',
     estimatedCost: 0,
     quantity: 0
-  }
+  }*/
 
   /*$scope.selections = {
   list: [
@@ -146,8 +157,6 @@ $scope.data = {}
 $scope.data.categories= {"list":[],"value":"",all:DataService.categories}
 $scope.data.client= {"list":[],"value":"",all:DataService.clients}
 $scope.data.clientReps= {"list":[],"value":"",all:DataService.clientReps}
-
-
 
 $scope.data.itemList = [];
 
