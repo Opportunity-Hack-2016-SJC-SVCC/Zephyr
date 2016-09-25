@@ -164,8 +164,39 @@ $ionicModal.fromTemplateUrl('templates/outgoing-donations.html', {
   }
   return this;
 })
-.controller("LoginReturnCtrl", function($scope){
-  $scope.token = "Im a token";
+.factory("Salesforce",function($q,$http){
+  this.postOutgoing = function(data){
+    var headers = {
+        'Content-Type': "application/json",
+        "Authorization" : "Bearer " + window.localStorage["access_token"]
+    }
+    $http({headers:headers,method:"POST",url:"https://unitycare-developer-edition.na35.force.com/services/apexrest/Outgoing",data:data}).then(function(){
+
+    })
+  }
+  return this;
+})
+.controller("LoginReturnCtrl", function($scope,$location,Salesforce){
+  var loc = window.location + "";
+  var i = loc.indexOf("access_token=");
+  loc = loc.substring(i);
+  locA = loc.split("&");
+  var tokens = locA[0].split("=")
+  window.localStorage["access_token"] =  tokens[1];
+  $scope.token = window.localStorage["access_token"];
+
+  $scope.testPost = function(){
+    var test = 
+        {
+        "Name" : "Batman" ,
+        "item" : "Pants",
+        "Count" : 1 ,
+        "Dev_staff" : "Debb51",
+        "Client_rep" : "Debb 12"
+
+        };
+    Salesforce.postOutgoing(test)
+  }
 })
 
 
