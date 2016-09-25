@@ -12,76 +12,38 @@
   <ion-content>
    <div class="content padding">
     <h1>Outgoing Donations Form</h1>
-    </div>
-    <!-- <form name="outgoingDonationsForm" ng-submit="a " >
-     <div class="list" >
-      <label class="item item-input" >
-       <span class="input-label">Staff Name</span>
-       <input type="text" name="staffName" required > </input> 
-     </label> 
-   </div>
- </form> 
-
-<!Name 
-<div class="list">
-<div class="form_group">
-  <label class="item item-input item-floating-label" ng-class="{ 'has_error' : sample_form.name.$invalid && !sample_form.name.$pristine }">
-    <span class="input-label">Client Name</span>
-    <input type="text" placeholder="Name" name="name" ng-model="user.name" class="form_control" required>
-  </label>
-  <div ng-show="!sample_form.name.$pristine" ng-messages="sample_form.name.$error">
-    <p ng-message="required" class="help-block">Your name is required.</p>
   </div>
-</div>
-</div> -->
-
-<div class="list">
-  <label class="item item-input item-floating-label">
-    <span class="input-label">Client Name</span>
-    <input type="text" placeholder="Client Name">
-  </label>
- 
-
-
-<!-- experiment -->
-<!-- <div ng-controller="MyCtrl">
-
- -->  
-<div class="list">
- <label class="search_nav item item-input item-floating-label" >
-    <span class="input-label">Client Representative</span>
-    <input type="text" placeholder="Client Representative">
-  </label>
-  <!-- <label class="item item-input item-floating-label">
-    <span class="input-label">item</span>
-    <input type="text" placeholder="Search for the items">
-  </label> -->
-
-  <label class="item item-input item-floating-label">
-    <input type="search" placeholder="Search" ng-change="search()" ng-model="data.itemName">
-  </label>
-  <button class="button button-clear">
-    Cancel
-  </button>      
-
 
   <div class="list">
-    <li class="item" ng-repeat="airline in data.airlines" ng-click = "selectedItem('{{airline.name}}')">{{airline.name}}</li>
+    <label class="item item-input item-floating-label">
+      <span class="input-label">Client Name</span>
+      <input type="text" placeholder="Client Name">
+    </label>
+
+    <div class="list">
+     <label class="search_nav item item-input item-floating-label" >
+      <span class="input-label">Client Representative</span>
+      <input type="text" placeholder="Client Representative">
+    </label>
+
+    <div>
+      <li class="item" ng-repeat="item in data.itemList">{{item.name}}</li>
+    </div>
+
+    <label class="item item-input item-floating-label">
+      <input type="search" placeholder="Search" ng-change="search()" ng-model="data.itemName">
+    </label>
+    <button class="button button-clear">
+      Cancel
+    </button>      
+
+    <div class="list">
+      <li class="item" ng-repeat="airline in data.airlines" ng-click = "selectedItem('{{airline.name}}')">{{airline.name}}</li>
+    </div>
+
   </div>
-
-</div>
-<!-- 
-</div> -->
-
-
-  <!-- div class="padding"> -->
-<!--     <i class="ion-plus-circled padding" style="font-size: 90px;text-align:center;"></i>
-    <i class="ion-minus-circled large padding"></i> -->
- <!--  </div> -->
 
 
 </ion-content>
-
-
 
 </ion-modal-view> 

@@ -98,6 +98,7 @@ $ionicModal.fromTemplateUrl('templates/outgoing-donations.html', {
   $scope.myTitle = 'Auto Complete Example';
 
       $scope.data = { "airlines" : [], "itemName" : '' };
+      $scope.data.itemList = [];
 
       $scope.search = function() {
 
@@ -110,7 +111,9 @@ $ionicModal.fromTemplateUrl('templates/outgoing-donations.html', {
 
       $scope.selectedItem = function(itemName){
         $scope.data.airlines = [];
-        $scope.data.itemName = itemName;
+        $scope.data.itemName = "";
+        var newItem = {name:itemName};
+        $scope.data.itemList.push(newItem);
       }
   
 });
