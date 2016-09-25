@@ -1,9 +1,6 @@
 <ion-view view-title="Donation Flow">
   <ion-content>
-  	<div class="padding">
-    <h1 style="display: inline-block">Forms</h1>
-	<img src="img/unity_care_logo.jpg" style="width: 25%;height: 25%; float:right">
-	</div>
+
   	<div class="content padding">
   	<div ng-show="Salesforce.unsyncedItems>0" style="line-height:45px;">
   	Unsynced items: {{Salesforce.unsyncedItems}} {{Salesforce.isSyncing()}} <button  ng-click="Salesforce.sync()" style="float:right;background-color: #000080;" class=" right button button-balanced">Sync to Salesforce</button>
