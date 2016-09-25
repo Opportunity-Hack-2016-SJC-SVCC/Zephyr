@@ -94,18 +94,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService,Sa
     quantity: 0
   }
 
-  /*$scope.selections = {
-  list: [
-      {
-        item: 'shoes',
-        options: [{value: 'medium'},{value: 'large'}]
-      },
-      {
-        item: 'clothes'
-      }
-      ]
-}
-*/
+
 $scope.removeInput = function(index) {
   $scope.data.itemList.splice(index, 1);
 }

@@ -2,19 +2,16 @@
 
   <ion-header-bar>
     <a class="button icon-left ion-chevron-left button-clear button-dark" ng-click="closeOutgoingDonations()" style="font-weight: 500;" >Back</a>
-    <!-- <h1 class="title"></h1> -->
-    <button style="font-weight: 500;" class="button button-clear button-dark">
-      Submit
-    </button>
   </ion-header-bar>
 
 
   <ion-content>
    <div class="content padding">
-    <h1>Outgoing Form</h1>
+    <h3   style="text-align:center; color: #000080;">Outgoing Donations</h3>
   </div>
+  
 
-<!-- client name -->
+  <!-- client name -->
 
   <label class="item item-input item-floating-label">
     <span class="input-label">Client Name</span>
@@ -25,7 +22,7 @@
     <li class="clientName item " ng-repeat="client in data.client.list" ng-click = "globalSelectedFunction('{{client}}', data.client)">{{client}}</li>
   </div>
 
-<!-- client Representative -->
+  <!-- client Representative -->
 
   <label class="search_nav item item-input item-floating-label" >
     <span class="input-label">Client Representative</span>
@@ -36,32 +33,31 @@
     </li>
   </div>
 
-
   <ion-list>
-    <!-- li class="item" ng-repeat="item in data.itemList"> -->
 
-  <ion-item ng-repeat="item in data.itemList" class="fixitem" style="padding-right: 10px;">
-    <!-- <ion-delete-button class="ion-minus-circled" ng-click="removeItem(item)"></ion-delete-button> -->
-    <button ng-click="removeItem(item)"><i class="ion-ios-close-outline" ></i></button>
-   
-    {{item.name}}
-    <input class = "catlst"  style="width: 40px;display:inline;float:right;" type="number" ng-model="item.value" name=""> 
- </ion-item>
- </ion-list>
+    <ion-item ng-repeat="item in data.itemList" class="fixitem" style="padding-right: 10px;">
+
+      <button ng-click="removeItem(item)"><i class="ion-ios-close-outline" ></i></button>
+
+      {{item.name}}
+      <input style="width: 40px;display:inline;float:right;" type="number" ng-model="item.value" name=""> 
+    </ion-item>
+  </ion-list>
 
 
   <label class="item item-input item-floating-label">
-    <input type="search" placeholder="Search" ng-change="search(data.categories)" ng-model="data.categories.value" >
+    <input type="search" placeholder="Item categories" ng-change="search(data.categories)" ng-model="data.categories.value" >
   </label>
 
   <div class="list">
     <li class="item" ng-repeat="category in data.categories.list" ng-click = "selectedCategory('{{category}}')">{{category}}</li>
   </div>
 </div>
-  <div class="padding" style="
-    padding-top: 40px;">
-      <button type="submit" ng-click="submitOutgoing()" class="button button-block button-positive"> Submit</button>
-  </div>
+<div class="padding" style="
+padding: 40px 20px;">
+<button type="submit" ng-click="submitOutgoing()" class="button button-block button-positive"> Submit</button>
+</div>
+<img style="width: 60%; text-align:center;display: block; margin: 0 auto;" src="img/logo.jpg">
 
 </ion-content>
 

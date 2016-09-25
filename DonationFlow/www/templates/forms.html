@@ -1,17 +1,21 @@
-<ion-view view-title="Forms">
+<ion-view view-title="Donation Flow">
   <ion-content>
   	<div class="content padding">
   	<div ng-show="Salesforce.unsyncedItems>0" style="line-height:45px;">
-  	Unsynced items: {{Salesforce.unsyncedItems}} {{Salesforce.isSyncing()}} <button  ng-click="Salesforce.sync()" style="float:right;" class=" right button button-positive">Sync to Salesforce</button>
+  	Unsynced items: {{Salesforce.unsyncedItems}} {{Salesforce.isSyncing()}} <button  ng-click="Salesforce.sync()" style="float:right;background-color: #000080;" class=" right button button-balanced">Sync to Salesforce</button>
     </div>
     <div ng-show="Salesforce.unsyncedItems==0">
   	All synced
     </div>
 
-    <h1>Forms</h1>
-    <button type="submit" ng-click="incomingDonations()" class="button button-block button-positive"> Incoming Donations</button>
-    <button type="submit" ng-click="outgoingDonations()" class="button button-block button-positive"> Outgoing Donations
+    <h1 style="text-align:center;">Donate today!</h1>
+    <button type="submit" style="margin-top:50px;" ng-click="incomingDonations()" class="button button-block button-positive"> Incoming Donations</button>
+    <button type="submit" style="margin-top:30px;" ng-click="outgoingDonations()" class="button button-block button-positive"> Outgoing Donations
     </button>
 	</div>
+  
+    <img style="width: 80%; text-align:center;display: block; margin: 0 auto;" src="img/logo.jpg">
+
+  
   </ion-content>
 </ion-view>
