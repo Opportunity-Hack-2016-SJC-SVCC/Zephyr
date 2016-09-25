@@ -47,7 +47,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService,Sa
   };
 })
 
-.controller('PlaylistsCtrl', function($scope) {
+/*.controller('PlaylistsCtrl', function($scope) {
   $scope.playlists = [
   { title: 'Reggae', id: 1 },
   { title: 'Chill', id: 2 },
@@ -59,7 +59,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService,Sa
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
-})
+})*/
 
 //Incoming-donations
 .controller('FormsCtrl', function($scope, $ionicModal, $stateParams, DataService, Salesforce) {

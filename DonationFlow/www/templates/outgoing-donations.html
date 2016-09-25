@@ -1,4 +1,4 @@
-<ion-modal-view>
+<ion-modal-view style="width: 98%; height: 98%; top: 2%; left: 2%; right: 2%; bottom: 2%; layout-align: center">
 
   <ion-header-bar>
     <a class="button icon-left ion-chevron-left button-clear button-dark" ng-click="closeOutgoingDonations()" style="font-weight: 500;" >Back</a>
@@ -38,10 +38,10 @@
 
 
   <div>
-    <li class="item" ng-repeat="item in data.itemList"> <i class="ion-ios-close-outline" style = ""></i>  {{item.name}}<input class = "catlst" type="number" ng-model="item.value" name=""></li>
+    <li class="item" ng-repeat="item in data.itemList"> <i class="ion-ios-close-outline" style = ""></i>  {{item.name}}<input class = "catlst" type="number" ng-model="item.value" name=""> </li>
   </div>
   <label class="item item-input item-floating-label">
-    <input type="search" placeholder="Search" ng-change="search(data.categories)" ng-model="data.categories.value">
+    <input type="search" placeholder="Categories" ng-change="search(data.categories)" ng-model="data.categories.value">
   </label>
 
   <div class="list">
