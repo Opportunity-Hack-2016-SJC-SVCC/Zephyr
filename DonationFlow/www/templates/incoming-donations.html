@@ -2,16 +2,13 @@
 
 <ion-header-bar>
 <a class="button icon-left ion-chevron-left button-clear button-dark" ng-click="closeIncomingDonations()" style="font-weight: 500;" >Back</a>
-<h1 class="title">Incomming Donation</h1>
-<button style="font-weight: 500;" class="button button-clear button-dark">
-	Submit
-</button>
+
 </ion-header-bar>
 
 
 <ion-content>
 <div class="content padding">
-	<h1>Incoming Donations Form</h1>
+	<h1>Incoming Donations</h1>
 	<form name="incomingDonationsForm" ng-submit="incomingDonationsSubmit(incomingDonationsForm)" >
 		<div class="list">
     	<label class="item item-input" ng-class="{'has-errors':incomingDonationsForm.donorName.$invalid , 'no-errors':incomingDonationsForm.donorName.$valid}">
