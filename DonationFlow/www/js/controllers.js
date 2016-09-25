@@ -155,6 +155,7 @@ $scope.outgoingDonations = function() {
         jsonOutgoing.count = parseInt(value.value);
         Salesforce.saveOutgoing(jsonOutgoing);
       });
+      window.localStorage["devstaff"] = $scope.data.devstaff.value
       $scope.data.itemList = []
       $scope.data.client.value = ""
       $scope.data.clientReps.value = ""
@@ -185,6 +186,9 @@ $scope.data.devstaff= {"list":[],"value":""}
 $scope.data.categories= {"list":[],"value":"",all:DataService.categories}
 $scope.data.client= {"list":[],"value":"",all:DataService.clients}
 $scope.data.clientReps= {"list":[],"value":"",all:DataService.clientReps}
+  
+
+$scope.data.devstaff.value = window.localStorage["devstaff"]
 
 $scope.data.itemList = [];
 
