@@ -1,8 +1,8 @@
 window.app = angular.module('starter.controllers', [])
 
 
-app.controller('AppCtrl', function($scope, $ionicModal, $timeout,Salesforce,FlightDataService) {
- 
+app.controller('AppCtrl', function($scope, $ionicModal, $timeout, DataService,Salesforce) {
+
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -19,6 +19,8 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout,Salesforce,Flig
   }).then(function(modal) {
     $scope.modal = modal;
   });
+
+
 
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
@@ -60,7 +62,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout,Salesforce,Flig
 })
 
 //Incoming-donations
-.controller('FormsCtrl', function($scope, $ionicModal, $stateParams, FlightDataService) {
+.controller('FormsCtrl', function($scope, $ionicModal, $stateParams, DataService) {
 
   $ionicModal.fromTemplateUrl('templates/incoming-donations.html', {
     scope: $scope
@@ -107,44 +109,59 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout,Salesforce,Flig
 // out going
 
 $ionicModal.fromTemplateUrl('templates/outgoing-donations.html', {
-    scope: $scope
-  }).then(function(outmodal) {
-    $scope.outmodal = outmodal;
-  });
+  scope: $scope
+}).then(function(outmodal) {
+  $scope.outmodal = outmodal;
+});
 
-  
 
-  $scope.outgoingDonations = function() {
+
+$scope.outgoingDonations = function() {
     //alert('out donation!');
     $scope.outmodal.show();
-    };
+  };
 
     // Close outgoing donations
-  $scope.closeOutgoingDonations = function() {
-    $scope.outmodal.hide();
-  };
-//the code for search
-  $scope.myTitle = 'Auto Complete Example';
+    $scope.closeOutgoingDonations = function() {
+      $scope.outmodal.hide();
+    };
 
-      $scope.data = { "airlines" : [], "itemName" : '' };
-      $scope.data.itemList = [];
 
-      $scope.search = function() {
+//the code for search catagories
+//$scope.myTitle = 'Auto Complete Example';
 
-        FlightDataService.searchAirlines($scope.data.itemName).then(
-          function(matches) {
-            $scope.data.airlines = matches;
-          }
-        )
-      }
+$scope.data = {}
 
-      $scope.selectedItem = function(itemName){
-        $scope.data.airlines = [];
-        $scope.data.itemName = "";
-        var newItem = {name:itemName};
-        $scope.data.itemList.push(newItem);
-      }
-  
+$scope.data.categories= {"list":[],"value":"",all:DataService.categories}
+$scope.data.client= {"list":[],"value":"",all:DataService.clients}
+$scope.data.clientReps= {"list":[],"value":"",all:DataService.clientReps}
+
+
+
+$scope.data.itemList = [];
+
+
+$scope.search = function(ref) {
+  DataService.search(ref.value,ref.all).then(
+    function(matches) {
+      ref.list = matches;
+    }
+    )
+}
+
+$scope.selectedCategory = function(itemNameCat){
+  $scope.data.categories.list = [];
+  $scope.data.categories.value = "";
+
+  var newItem = {name:itemNameCat};
+  $scope.data.itemList.push(newItem);
+}
+
+  $scope.globalSelectedFunction = function(itemName, ref){
+     ref.list = [];
+     ref.value = itemName;
+   }
+
 })
 
 .service("Salesforce",function($q,$http){

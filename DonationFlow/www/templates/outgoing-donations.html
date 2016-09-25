@@ -14,34 +14,43 @@
     <h1>Outgoing Donations Form</h1>
   </div>
 
+<!-- client name -->
+
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Client Name</span>
+    <input type="text" placeholder="Client Name" ng-change="search(data.client)" ng-model="data.client.value">
+  </label>
+
   <div class="list">
-    <label class="item item-input item-floating-label">
-      <span class="input-label">Client Name</span>
-      <input type="text" placeholder="Client Name">
-    </label>
-
-    <div class="list">
-     <label class="search_nav item item-input item-floating-label" >
-      <span class="input-label">Client Representative</span>
-      <input type="text" placeholder="Client Representative">
-    </label>
-
-    <div>
-      <li class="item" ng-repeat="item in data.itemList">{{item.name}}</li>
-    </div>
-
-    <label class="item item-input item-floating-label">
-      <input type="search" placeholder="Search" ng-change="search()" ng-model="data.itemName">
-    </label>
-    <button class="button button-clear">
-      Cancel
-    </button>      
-
-    <div class="list">
-      <li class="item" ng-repeat="airline in data.airlines" ng-click = "selectedItem('{{airline.name}}')">{{airline.name}}</li>
-    </div>
-
+    <li class="clientName item " ng-repeat="client in data.client.list" ng-click = "globalSelectedFunction('{{client}}', data.client)">{{client}}</li>
   </div>
+
+<!-- client Representative -->
+
+  <label class="search_nav item item-input item-floating-label" >
+    <span class="input-label">Client Representative</span>
+    <input type="text" placeholder="Client Representative" ng-change="search(data.clientReps)" ng-model="data.clientReps.value">
+  </label>
+  <div class="list">
+    <li class="clientNameReps item" ng-repeat="client in data.clientReps.list" ng-click = "globalSelectedFunction('{{client}}', data.clientReps)">{{client}}</li>
+  </div>
+
+
+
+
+  <div>
+    <li class="item" ng-repeat="item in data.itemList">{{item.name}}</li>
+  </div>
+  <label class="item item-input item-floating-label">
+    <input type="search" placeholder="Search" ng-change="search(data.categories)" ng-model="data.categories.value">
+  </label>
+  <button class="button button-positive">
+    Cancel
+  </button>      
+  <div class="list">
+    <li class="item" ng-repeat="category in data.categories.list" ng-click = "selectedCategory('{{category}}')">{{category}}</li>
+  </div>
+</div>
 
 
 </ion-content>
