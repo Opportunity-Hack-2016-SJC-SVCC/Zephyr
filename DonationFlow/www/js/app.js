@@ -41,11 +41,12 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
+  .state('app.forms', {
+      url: '/forms',
       views: {
         'menuContent': {
-          templateUrl: 'templates/browse.html'
+          templateUrl: 'templates/forms.html',
+          controller: 'FormsCtrl'
         }
       }
     })

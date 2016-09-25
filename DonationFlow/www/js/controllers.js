@@ -43,14 +43,38 @@ angular.module('starter.controllers', [])
 
 .controller('PlaylistsCtrl', function($scope) {
   $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
+  { title: 'Reggae', id: 1 },
+  { title: 'Chill', id: 2 },
+  { title: 'Dubstep', id: 3 },
+  { title: 'Indie', id: 4 },
+  { title: 'Rap', id: 5 },
+  { title: 'Cowbell', id: 6 }
   ];
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
+})
+
+.controller('FormsCtrl', function($scope, $ionicModal, $stateParams) {
+
+  $ionicModal.fromTemplateUrl('templates/incoming-donations.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+  $scope.incomingDonations = function() {
+    //alert('in donation!');
+    $scope.modal.show();
+  };
+
+  $scope.outgoingDonations = function() {
+    //alert('out donation!');
+  };
+
 });
+
+
+//})
+
+
